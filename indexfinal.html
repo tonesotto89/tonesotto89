@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tone's Clinic 가맹 안내</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#f5f4f1;color:#1a1a1a;min-height:100vh;}
+.header{background:#fff;border-bottom:1px solid #e8e6e0;padding:16px 32px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;}
+.logo{font-size:20px;font-weight:600;letter-spacing:1px;}
+.logo span{color:#c0392b;}
+.header-sub{font-size:13px;color:#888;margin-left:auto;}
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px;}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;}
+.tab{padding:8px 18px;font-size:13px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#666;cursor:pointer;transition:all .15s;font-family:inherit;}
+.tab:hover{background:#f0eeea;border-color:#bbb;}
+.tab.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a;}
+.section{display:none;}
+.section.active{display:block;}
+.section-header{margin-bottom:24px;}
+.section-title{font-size:22px;font-weight:600;margin-bottom:4px;}
+.section-sub{font-size:14px;color:#777;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px;}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px;}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px;}
+.card{background:#fff;border:1px solid #e8e6e0;border-radius:14px;padding:18px 20px;}
+.card-red{background:#fff5f5;border:1px solid #f5c0c0;border-radius:14px;padding:18px 20px;}
+.card-accent{background:#fff8f2;border:1px solid #f5d0b0;border-radius:14px;padding:18px 20px;}
+.card-dark{background:#1a1a1a;border-radius:14px;padding:18px 20px;color:#fff;}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:10px;letter-spacing:.3px;}
+.badge-red{background:#fde8e8;color:#b91c1c;}
+.badge-blue{background:#e8f0fe;color:#1a56db;}
+.badge-green{background:#e8f5e9;color:#1b7a3e;}
+.badge-gray{background:#f0eeea;color:#555;}
+.badge-amber{background:#fff3e0;color:#b45309;}
+.badge-white{background:rgba(255,255,255,.15);color:#fff;}
+.num{font-size:32px;font-weight:700;color:#1a1a1a;line-height:1.1;}
+.num-red{color:#c0392b;}
+.num-sub{font-size:13px;color:#888;margin-top:4px;}
+.num-label{font-size:12px;color:#999;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.card-title{font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:8px;}
+.card-desc{font-size:13px;color:#666;line-height:1.65;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f0eeea;}
+.row:last-child{border-bottom:none;}
+.row-label{font-size:13px;color:#888;}
+.row-val{font-size:13px;font-weight:500;color:#1a1a1a;}
+.row-val-red{font-size:13px;font-weight:600;color:#c0392b;}
+.step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;}
+.step-num{width:26px;height:26px;min-width:26px;border-radius:50%;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;margin-top:1px;}
+.step-body{flex:1;}
+.step-title{font-size:14px;font-weight:600;margin-bottom:3px;}
+.step-desc{font-size:13px;color:#666;line-height:1.6;}
+.divider{border:none;border-top:1px solid #e8e6e0;margin:20px 0;}
+.tag{display:inline-block;padding:4px 10px;background:#f0eeea;border-radius:8px;font-size:12px;color:#555;margin:3px;}
+.branch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:16px;}
+.branch-tag{background:#fff;border:1px solid #e8e6e0;border-radius:10px;padding:9px 10px;font-size:13px;color:#555;text-align:center;}
+.branch-tag.main{background:#1a1a1a;color:#fff;border-color:#1a1a1a;font-weight:500;}
+.branch-tag.new{background:#fff8f2;border:1px dashed #f0a070;color:#b45309;}
+.bar-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;}
+.bar-label{font-size:12px;color:#888;width:90px;min-width:90px;}
+.bar-track{flex:1;background:#f0eeea;border-radius:4px;height:22px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:10px;}
+.bar-fill-red{background:#c0392b;}
+.bar-fill-blue{background:#2563eb;}
+.bar-text{font-size:11px;font-weight:600;color:#fff;}
+.big-stat{text-align:center;padding:24px 16px;}
+.big-num{font-size:48px;font-weight:700;color:#c0392b;line-height:1;}
+.big-label{font-size:14px;color:#888;margin-top:6px;}
+.highlight-box{background:#fff5f5;border:1px solid #f5c0c0;border-radius:12px;padding:16px 20px;margin-top:16px;}
+.highlight-title{font-size:16px;font-weight:600;color:#b91c1c;margin-bottom:4px;}
+.highlight-desc{font-size:13px;color:#666;line-height:1.6;}
+.contact-card{background:#1a1a1a;border-radius:14px;padding:24px;color:#fff;display:flex;flex-direction:column;gap:12px;}
+.contact-name{font-size:24px;font-weight:700;}
+.contact-role{font-size:14px;color:rgba(255,255,255,.6);}
+.contact-item{display:flex;gap:10px;align-items:center;font-size:14px;color:rgba(255,255,255,.85);}
+.contact-key{color:rgba(255,255,255,.45);font-size:12px;width:60px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">TONE<span>❖</span>S CLINIC</div>
+  <div style="font-size:12px;color:#aaa;padding:3px 10px;background:#f0eeea;border-radius:20px;">가맹 안내 자료</div>
+  <div class="header-sub">합리적인 금액의 프리미엄 퀄리티</div>
+</div>
+
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="show('overview',this)">📋 개요</button>
+    <button class="tab" onclick="show('branch',this)">📍 지점현황</button>
+    <button class="tab" onclick="show('marketing',this)">📣 마케팅</button>
+    <button class="tab" onclick="show('education',this)">🎓 교육·시술</button>
+    <button class="tab" onclick="show('event',this)">🎁 이벤트</button>
+    <button class="tab" onclick="show('special',this)">⭐ 톤즈 특별함</button>
+    <button class="tab" onclick="show('revenue',this)">💰 객단가·수익</button>
+    <button class="tab" onclick="show('timeline',this)">🚀 오픈 타임라인</button>
+    <button class="tab" onclick="show('contact',this)">📞 문의</button>
+  </div>
+
+  <!-- 개요 -->
+  <div id="overview" class="section active">
+    <div class="section-header">
+      <div class="section-title">Tone's Clinic 가맹 개요</div>
+      <div class="section-sub">2021년 4월 뮤즈클리닉으로 시작 → 2022년 1월 톤즈의원 → 2023년 전국 네트워크 브랜드</div>
+    </div>
+    <div class="grid4">
+      <div class="card"><div class="num-label">현재 지점 수</div><div class="num">25<span style="font-size:18px;font-weight:400;">개</span></div><div class="num-sub">전국 운영 중</div></div>
+      <div class="card"><div class="num-label">브랜드 수수료</div><div class="num num-red">9<span style="font-size:18px;font-weight:400;">%</span></div><div class="num-sub">1억 미만 수수료 없음</div></div>
+      <div class="card"><div class="num-label">2.8억 이상 지점</div><div class="num">18<span style="font-size:16px;font-weight:400;">/19</span></div><div class="num-sub">2025.09 기준</div></div>
+      <div class="card"><div class="num-label">오픈 소요 기간</div><div class="num">2.5~3<span style="font-size:16px;font-weight:400;">개월</span></div><div class="num-sub">매물 확정 후</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge badge-gray">전체 구성 — INDEX</div>
+        <div class="row"><span class="row-label">01 지점현황</span><span class="row-val">25개 전국 지점</span></div>
+        <div class="row"><span class="row-label">02 마케팅</span><span class="row-val">초진 = 마케팅</span></div>
+        <div class="row"><span class="row-label">03 교육 및 시술 만족도</span><span class="row-val">본사 파견·표준화 교육</span></div>
+        <div class="row"><span class="row-label">04 이벤트</span><span class="row-val">본사 직접 제작·월 4회</span></div>
+        <div class="row"><span class="row-label">05 톤즈가 특별한 이유</span><span class="row-val">인테리어·화장품·장비</span></div>
+        <div class="row"><span class="row-label">06 객단가를 올리는 방법</span><span class="row-val">3단계 공식</span></div>
+        <div class="row"><span class="row-label">07 계약부터 오픈 타임라인</span><span class="row-val">6단계·2.5~3개월</span></div>
+        <div class="row"><span class="row-label">08 톤즈 원장님이 되십시오</span><span class="row-val">추가 6개 지점 모집 중</span></div>
+      </div>
+      <div class="card-dark">
+        <div class="badge badge-white">핵심 메시지</div>
+        <div style="font-size:18px;font-weight:600;line-height:1.5;margin-bottom:12px;">차별화된 성공 공식으로<br>이뤄낸 톤즈의원</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.7;">톤즈의원은 차별화된 시스템과 노하우를 바탕으로 고객에게 최고의 결과를 제공하며 성공을 이어가고 있습니다.</div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;color:rgba(255,255,255,.45);">20개 지점 중 1억 미만 단 한 지점도 없습니다 (2025.09)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 지점현황 -->
+  <div id="branch" class="section">
+    <div class="section-header">
+      <div class="section-title">01. 지점현황</div>
+      <div class="section-sub">현재 운영 중 25개 지점 + 신규 모집 6개 지점</div>
+    </div>
+    <div class="badge badge-gray" style="margin-bottom:10px;">운영 중 25개 지점</div>
+    <div class="branch-grid">
+      <div class="branch-tag main">인천본점</div>
+      <div class="branch-tag">수원광교점</div><div class="branch-tag">홍대입구역점</div><div class="branch-tag">의정부점</div><div class="branch-tag">안양범계점</div><div class="branch-tag">대전둔산점</div><div class="branch-tag">용인점</div><div class="branch-tag">화성동탄점</div><div class="branch-tag">인천검단점</div><div class="branch-tag">하남점</div><div class="branch-tag">분당점</div><div class="branch-tag">일산점</div><div class="branch-tag">건대입구역점</div><div class="branch-tag">광명점</div><div class="branch-tag">부산서면역점</div><div class="branch-tag">강남점</div><div class="branch-tag">수원망포점</div><div class="branch-tag">경기광주점</div><div class="branch-tag">평택점</div><div class="branch-tag">명동점</div><div class="branch-tag">잠실점</div><div class="branch-tag">전주점</div><div class="branch-tag">부천점</div><div class="branch-tag">안산점</div><div class="branch-tag">영등포점</div>
+    </div>
+    <div class="badge badge-amber" style="margin-bottom:10px;margin-top:8px;">신규 모집 6개 지점</div>
+    <div class="branch-grid">
+      <div class="branch-tag new">청량리점</div><div class="branch-tag new">대구점</div><div class="branch-tag new">청주점</div><div class="branch-tag new">울산점</div><div class="branch-tag new">천안점</div><div class="branch-tag new">판교점</div>
+    </div>
+    <div class="divider"></div>
+    <div class="card-title" style="margin-bottom:14px;">지점 오픈 연혁</div>
+    <div class="grid3">
+      <div class="card">
+        <div class="badge badge-blue">2023년</div>
+        <div class="row"><span class="row-label">수원광교점</span><span class="row-val">23.07.07</span></div>
+        <div class="row"><span class="row-label">홍대입구역점</span><span class="row-val">23.11.03</span></div>
+        <div class="row"><span class="row-label">의정부점</span><span class="row-val">23.12.14</span></div>
+      </div>
+      <div class="card">
+        <div class="badge badge-green">2024년</div>
+        <div class="row"><span class="row-label">안양범계점</span><span class="row-val">24.03.28</span></div>
+        <div class="row"><span class="row-label">대전둔산점</span><span class="row-val">24.07.01</span></div>
+        <div class="row"><span class="row-label">용인점</span><span class="row-val">24.08.12</span></div>
+        <div class="row"><span class="row-label">화성동탄점</span><span class="row-val">24.09.09</span></div>
+        <div class="row"><span class="row-label">인천검단점</span><span class="row-val">24.10.11</span></div>
+        <div class="row"><span class="row-label">분당점</span><span class="row-val">24.12.23</span></div>
+      </div>
+      <div class="card">
+        <div class="badge badge-red">2025년</div>
+        <div class="row"><span class="row-label">건대입구역점</span><span class="row-val">25.04.05</span></div>
+        <div class="row"><span class="row-label">일산점</span><span class="row-val">25.04.10</span></div>
+        <div class="row"><span class="row-label">광명점</span><span class="row-val">25.05.10</span></div>
+        <div class="row"><span class="row-label">부산서면역점</span><span class="row-val">25.06.05</span></div>
+        <div class="row"><span class="row-label">강남점</span><span class="row-val">25.07.02</span></div>
+        <div class="row"><span class="row-label">수원망포점</span><span class="row-val">25.08.06</span></div>
+        <div class="row"><span class="row-label">경기광주점</span><span class="row-val">25.08.30</span></div>
+        <div class="row"><span class="row-label">평택점</span><span class="row-val">25.10.11</span></div>
+        <div class="row"><span class="row-label">명동점</span><span class="row-val">25.11.29</span></div>
+        <div class="row"><span class="row-label">잠실점</span><span class="row-val">25.12.20</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 마케팅 -->
+  <div id="marketing" class="section">
+    <div class="section-header">
+      <div class="section-title">02. 마케팅 — 초진 = 마케팅</div>
+      <div class="section-sub">전국 브랜드 유일. 파워링크 포함 모든 마케팅 업무 수수료 외 추가비용 없음.</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge badge-blue">네이버 마케팅 4채널</div>
+        <div class="row"><span class="row-label">파워링크</span><span class="row-val">검색 광고 상위 노출</span></div>
+        <div class="row"><span class="row-label">플레이스·리뷰</span><span class="row-val">지역 검색 노출</span></div>
+        <div class="row"><span class="row-label">카페</span><span class="row-val">약 295만 게시글</span></div>
+        <div class="row"><span class="row-label">자동완성</span><span class="row-val">검색어 브랜드 노출</span></div>
+      </div>
+      <div class="card">
+        <div class="badge badge-red">SNS 멀티채널</div>
+        <div class="row"><span class="row-label">유튜브</span><span class="row-val">@dr_ohmi</span></div>
+        <div class="row"><span class="row-label">틱톡</span><span class="row-val">팔로워 24.8만</span></div>
+        <div class="row"><span class="row-label">인스타그램</span><span class="row-val">팔로워 16.1만</span></div>
+        <div class="row"><span class="row-label">오픈 시 노출</span><span class="row-val-red">조회 20만~150만</span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div class="badge badge-gray">블로그 마케팅 철학</div>
+      <div class="card-desc">이벤트 가격 썸네일이 아닌 <strong>퀄리티 높은 포스팅</strong>으로 운영. "낮은 가격이 진정한 마케팅일까요?" — 저렴한 이벤트 마케팅 대신 전문성·신뢰 콘텐츠로 차별화.</div>
+    </div>
+    <div class="card-accent">
+      <div class="badge badge-amber">핵심 전략</div>
+      <div class="card-title">저렴해 보이지만 높은 객단가를 유지할 수 있는 이유</div>
+      <div class="card-desc" style="margin-top:8px;">합리적 가격 이미지로 신규 고객 유입 → 전문화된 상담·업셀링으로 고가 시술 자연스럽게 연결 → 표준화된 품질 관리 + 시즌별 마케팅·이벤트로 재구매 촉진 → 프리미엄 신뢰도 구축 → 높은 객단가 유지</div>
+    </div>
+  </div>
+
+  <!-- 교육·시술 -->
+  <div id="education" class="section">
+    <div class="section-header">
+      <div class="section-title">03. 교육 및 시술 만족도</div>
+      <div class="section-sub">각 지점의 직원이 톤즈 브랜드의 가치입니다</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge badge-blue">본사 파견 교육 시스템</div>
+        <div style="margin-top:10px;">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">표준화 운영 매뉴얼</div><div class="step-desc">시술 프로세스, 상담 스크립트, 고객 응대 매뉴얼 전면 적용</div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">지속적 역량 강화</div><div class="step-desc">신기술·신제품·최신 트렌드 반영 교육</div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">캐데버 워크숍</div><div class="step-desc">실전 시술 트레이닝으로 임상 역량 확보</div></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">전지점 동일 품질 유지</div><div class="step-desc">전 국네트워크 서비스·시술 퀄리티 표준화</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="badge badge-green">민원·법무 처리</div>
+        <div style="margin-top:10px;">
+          <div class="step"><div class="step-num">①</div><div class="step-body"><div class="step-title">보건소 민원 직접 담당</div><div class="step-desc">본사가 직접 처리 → 원장님 운영 부담 대폭 감소</div></div></div>
+          <div class="step"><div class="step-num">②</div><div class="step-body"><div class="step-title">법무법인 협력</div><div class="step-desc">의료 분쟁·민원·계약 관련 법무자문 제공</div></div></div>
+          <div class="step"><div class="step-num">③</div><div class="step-body"><div class="step-title">팔로업 익명방 운영</div><div class="step-desc">현장 실제 목소리 수집 및 신속 대응</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 이벤트 -->
+  <div id="event" class="section">
+    <div class="section-header">
+      <div class="section-title">04. 이벤트 — 본사가 직접 합니다</div>
+      <div class="section-sub">본사에서 이벤트 직접 작성하여 지점에 제공. 월 4회 이벤트 운영.</div>
+    </div>
+    <div class="grid4">
+      <div class="card">
+        <div class="badge badge-gray">STEP 01</div>
+        <div class="card-title">본사 이벤트 작성</div>
+        <div class="card-desc">월 4회 이벤트 본사가 직접 기획·제작</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-gray">STEP 02</div>
+        <div class="card-title">지점 컨펌 진행</div>
+        <div class="card-desc">각 지점 상황에 맞게 검토 후 확정</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-gray">STEP 03</div>
+        <div class="card-title">홈페이지 자동화</div>
+        <div class="card-desc">이벤트 등록·업데이트 자동 처리</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-gray">STEP 04</div>
+        <div class="card-title">카카오톡 발송</div>
+        <div class="card-desc">기존 고객 대상 이벤트 알림 자동 발송</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 톤즈 특별함 -->
+  <div id="special" class="section">
+    <div class="section-header">
+      <div class="section-title">05. 톤즈가 특별한 이유</div>
+      <div class="section-sub">인테리어·화장품·장비·실시간 소통·교육 5가지 핵심 차별화</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge badge-red">① 인테리어</div>
+        <div class="card-title">실물이 더 아름다운 인테리어</div>
+        <div class="row" style="margin-top:8px;"><span class="row-label">타 브랜드 평균</span><span class="row-val">300만원 이상 / 평</span></div>
+        <div class="row"><span class="row-label">톤즈 베이직</span><span class="row-val-red">250만원 / 평</span></div>
+        <div class="row"><span class="row-label">톤즈 프리미엄</span><span class="row-val-red">270만원 / 평</span></div>
+      </div>
+      <div class="card">
+        <div class="badge badge-blue">② DR.TONES 자체 화장품</div>
+        <div class="card-title">피부과는 화장품부터 달라야 합니다</div>
+        <div class="card-desc" style="margin:8px 0;">전지점 사용 + 가격 합리적 + 관리실 비용 최저 유지</div>
+        <div><span class="tag">클렌징크림</span><span class="tag">알로에 수딩젤</span><span class="tag">워터풀토너</span><span class="tag">리페어크림</span><span class="tag">선크림</span><span class="tag">마스크팩</span><span class="tag">립밤</span></div>
+      </div>
+      <div class="card">
+        <div class="badge badge-green">③ 장비 및 팁 원가 제공</div>
+        <div class="row"><span class="row-label">의료장비</span><span class="row-val">전지점 최저가 납품 진행 중</span></div>
+        <div class="row"><span class="row-label">소모품(팁)</span><span class="row-val">단체 구매 대량 구매 최저가</span></div>
+      </div>
+      <div class="card">
+        <div class="badge badge-amber">④ 플로우앱 실시간 소통</div>
+        <div class="card-desc" style="margin-top:6px;">각 지점별 직접 소통하며 섬세하게 운영. 전체 업무 처리 2,076건.</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:0;">
+      <div class="badge badge-gray">⑤ 경쟁 심화 시대의 톤즈 전략</div>
+      <div class="grid2" style="margin-top:14px;">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#888;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">경쟁 심화 현실</div>
+          <div class="row"><span class="row-label">의료기관 진입 장벽 낮음</span></div>
+          <div class="row"><span class="row-label">피부·미용 시장 성장</span></div>
+          <div class="row"><span class="row-label">온라인 정보 확산·비교 가속</span></div>
+          <div class="row"><span class="row-label">차별성 없는 시술 포화</span></div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#c0392b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">톤즈만의 특별함</div>
+          <div class="row"><span class="row-val" style="font-weight:400;color:#1a1a1a;">전문성·신뢰성·경험이 고객 선택 기준</span></div>
+          <div class="row"><span class="row-val" style="font-weight:400;color:#1a1a1a;">서비스·철학·기술력으로 가격 경쟁 탈피</span></div>
+          <div class="row"><span class="row-val" style="font-weight:400;color:#1a1a1a;">브랜드 가치가 충성 고객 자산화</span></div>
+          <div class="row"><span class="row-val" style="font-weight:400;color:#1a1a1a;">스토리·진료 방식으로 마케팅 극대화</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 객단가·수익 -->
+  <div id="revenue" class="section">
+    <div class="section-header">
+      <div class="section-title">06. 객단가를 올리는 방법</div>
+      <div class="section-sub">초진(마케팅) → 교육+시술만족도 → 이벤트 3단계 공식</div>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <div class="badge badge-red">01 초진 (마케팅)</div>
+        <div class="card-desc">온라인 광고·SNS·지역 타겟 마케팅으로 신규 고객 확보. 첫 경험에서 신뢰 → 고가 시술 전환.</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-blue">02 교육 + 시술만족도</div>
+        <div class="card-desc">정기 교육·서비스 품질 관리로 상담·시술 전문성 향상. 고객 신뢰·만족도 강화 → 재방문·업셀링.</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-green">03 이벤트</div>
+        <div class="card-desc">단순 할인이 아닌 고가 시술 체험 기회 제공. 시즌·테마별 이벤트로 재방문·신뢰 확보.</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="card-title" style="margin-bottom:14px;">실제 지점 매출 데이터 <span style="font-size:12px;font-weight:400;color:#aaa;">(개별 실적 / 동일 성과 보장 없음)</span></div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:12px;color:#aaa;margin-bottom:10px;">최고 객단가 (원)</div>
+      <div class="bar-row"><span class="bar-label">부평점</span><div class="bar-track"><div class="bar-fill bar-fill-red" style="width:100%;"><span class="bar-text">613,099원</span></div></div></div>
+      <div class="bar-row"><span class="bar-label">광교점</span><div class="bar-track"><div class="bar-fill bar-fill-red" style="width:96%;"><span class="bar-text">588,229원</span></div></div></div>
+      <div class="bar-row"><span class="bar-label">동탄점</span><div class="bar-track"><div class="bar-fill bar-fill-red" style="width:90%;"><span class="bar-text">552,850원</span></div></div></div>
+      <div style="font-size:12px;color:#aaa;margin:14px 0 10px;">월 최고 매출 (원)</div>
+      <div class="bar-row"><span class="bar-label">동탄점</span><div class="bar-track"><div class="bar-fill bar-fill-blue" style="width:100%;"><span class="bar-text">253,205,080원</span></div></div></div>
+      <div class="bar-row"><span class="bar-label">부평점</span><div class="bar-track"><div class="bar-fill bar-fill-blue" style="width:97%;"><span class="bar-text">290,898,005원</span></div></div></div>
+      <div class="bar-row"><span class="bar-label">광교점</span><div class="bar-track"><div class="bar-fill bar-fill-blue" style="width:85%;"><span class="bar-text">240,585,470원</span></div></div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge badge-gray">수수료 구조</div>
+        <div class="row"><span class="row-label">타 브랜드 수수료</span><span class="row-val">13% (예: 유앤아이, 닥터에버스)</span></div>
+        <div class="row"><span class="row-label">톤즈 고정 수수료</span><span class="row-val-red">9% (1억 미만 0%)</span></div>
+        <div class="row"><span class="row-label">예상 수익률</span><span class="row-val-red">15~30%</span></div>
+      </div>
+      <div class="card-red">
+        <div class="badge badge-red">개인병원 → 톤즈 변경 성공사례</div>
+        <div class="row"><span class="row-label">안양점</span><span class="row-val">3.3억 → <strong style="color:#c0392b;">4.2억</strong></span></div>
+        <div class="row"><span class="row-label">일산점</span><span class="row-val">2.5억 → <strong style="color:#c0392b;">4.3억</strong></span></div>
+        <div class="row"><span class="row-label">망포점</span><span class="row-val">0.69억 → <strong style="color:#c0392b;">2.95억</strong></span></div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <div class="highlight-title">20개 지점 중 1억 미만 단 한 지점도 없습니다</div>
+      <div class="highlight-desc">2025.09 기준. 매출 2.8억 이상 18개 / 19개 (오픈 한 달차 포함). 톤즈 가입 후 20~40% 수익률 달성.</div>
+    </div>
+  </div>
+
+  <!-- 오픈 타임라인 -->
+  <div id="timeline" class="section">
+    <div class="section-header">
+      <div class="section-title">07. 계약부터 오픈까지 타임라인</div>
+      <div class="section-sub">매물 확정 후 2.5~3개월이면 오픈. 원장님은 진료에만 집중하세요.</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge badge-gray">STEP 01</div>
+        <div class="card-title">계약 & 매물확정</div>
+        <div class="card-desc">입지분석·상권 데이터 제공·매물검토 조언</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-gray">STEP 02</div>
+        <div class="card-title">인테리어 착공</div>
+        <div class="card-desc">톤즈 시스템 100% 반영. 업체 연결·설계 가이드·공사 진행 관리.</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-gray">STEP 03</div>
+        <div class="card-title">장비 & 물품 셋팅</div>
+        <div class="card-desc">의료장비·DR.TONES 화장품·소모품 일괄 공급. 최저가 납품·직접 세팅 지원.</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-gray">STEP 04</div>
+        <div class="card-title">직원 채용 & 교육</div>
+        <div class="card-desc">채용 가이드·직접 방문 교육·운영 매뉴얼·상담 스크립트 제공.</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-gray">STEP 05</div>
+        <div class="card-title">마케팅 준비</div>
+        <div class="card-desc">오픈 전 네이버·SNS·카카오톡 세팅. 이벤트 제작·파워링크·블로그·플레이스 등록.</div>
+      </div>
+      <div class="card-dark">
+        <div class="badge badge-white">STEP 06</div>
+        <div class="card-title" style="color:#fff;">오픈</div>
+        <div class="card-desc" style="color:rgba(255,255,255,.7);">본사 담당자 오픈 현장 동행. 당일 현장 지원·초기 운영 밀착 케어·플로우앱 실시간 소통 시작.</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="card-title" style="margin-bottom:14px;">오픈 세팅 비용 (보증금 제외)</div>
+    <div class="grid3">
+      <div class="card"><div class="num-label">100평 기준</div><div class="num">4~5억</div></div>
+      <div class="card"><div class="num-label">200평 기준</div><div class="num">8~9억</div></div>
+      <div class="card-dark">
+        <div class="num-label" style="color:rgba(255,255,255,.5);">목표 수익률</div>
+        <div class="num" style="color:#fff;">20~40<span style="font-size:18px;font-weight:400;">%</span></div>
+        <div class="num-sub" style="color:rgba(255,255,255,.5);">의정부·동탄 등 10억 대출 상환 완료</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 문의 -->
+  <div id="contact" class="section">
+    <div class="section-header">
+      <div class="section-title">08. 톤즈 원장님이 되십시오</div>
+      <div class="section-sub">지역 마케팅까지 확실하게 세련되고 트렌디한 내 병원을 오픈해 보세요</div>
+    </div>
+    <div class="grid2">
+      <div class="contact-card">
+        <div>
+          <div class="contact-name">황 아 름</div>
+          <div class="contact-role">톤즈의원 브랜드 대표</div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:14px;display:flex;flex-direction:column;gap:10px;">
+          <div class="contact-item"><span class="contact-key">E-Mail</span>otto89@naver.com</div>
+          <div class="contact-item"><span class="contact-key">Web</span>tonesclinic.co.kr</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="badge badge-amber">신규 모집 중</div>
+        <div class="card-title" style="margin-bottom:12px;">다음 오픈 예정 지점</div>
+        <div class="branch-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="branch-tag new">청량리점</div>
+          <div class="branch-tag new">대구점</div>
+          <div class="branch-tag new">청주점</div>
+          <div class="branch-tag new">울산점</div>
+          <div class="branch-tag new">천안점</div>
+          <div class="branch-tag new">판교점</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
